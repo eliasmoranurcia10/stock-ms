@@ -1,9 +1,7 @@
 package com.examen.stock_ms.model.dto;
 
-public record SaveStockResponseDto(
-        Integer id,
+public record FindByProductIdDto(
         Integer productId,
-        Integer wareHouseId,
-        Integer quantity
+        Integer total
 ) {
 }

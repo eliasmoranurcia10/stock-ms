@@ -1,4 +1,4 @@
-package com.examen.stock_ms.controller.advice;
+package com.examen.stock_ms.controller;
 
 import com.examen.stock_ms.model.dto.FindByProductIdDto;
 import com.examen.stock_ms.model.dto.SaveStockRequestDto;

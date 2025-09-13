@@ -1,4 +1,9 @@
 package com.examen.stock_ms.model.dto;
 
-public record ErrorDetailDto() {
+import java.time.LocalDateTime;
+
+public record ErrorDetailDto(
+        String message,
+        LocalDateTime dateTime
+) {
 }
