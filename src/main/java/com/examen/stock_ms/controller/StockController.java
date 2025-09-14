@@ -6,6 +6,8 @@ import com.examen.stock_ms.model.dto.SaveStockResponseDto;
 import com.examen.stock_ms.service.StockService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/stock")
 public class StockController {
@@ -22,7 +24,7 @@ public class StockController {
     }
 
     @PostMapping
-    public SaveStockResponseDto saveStock(@RequestBody SaveStockRequestDto saveStockRequestDto) {
-        return stockService.saveStock(saveStockRequestDto);
+    public List<SaveStockResponseDto> saveStocks(@RequestBody List<SaveStockRequestDto> saveStocksRequestDto) {
+        return stockService.saveStocks(saveStocksRequestDto);
     }
 }

@@ -27,9 +27,10 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public FindByProductIdDto cantidadDeUnidadesPorProducto(Integer productId) {
-        if(productId==null) throw new BadRequestException("El producto id no puede ser nulo");
+        if(productId==0) throw new BadRequestException("El producto id no puede ser cero");
 
         Integer total = stockRepository.getTotalQuantityByProductId(productId);
+        if(total==null) throw new ResourceNotFoundException("No se encontró el identificador del producto: " + productId);
 
         return new FindByProductIdDto(
                 productId,
@@ -38,10 +39,10 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public SaveStockResponseDto saveStock(SaveStockRequestDto saveStockRequestDto) {
+    public List<SaveStockResponseDto> saveStocks(List<SaveStockRequestDto> saveStocksRequestDto) {
         try {
-            Stock stock = stockMapper.toStock(saveStockRequestDto);
-            return stockMapper.toSaveStockResponseDto( stockRepository.save(stock) );
+            List<Stock> stocks = stockMapper.toStocks(saveStocksRequestDto);
+            return stockMapper.toSaveStocksResponseDto( stockRepository.saveAllAndFlush(stocks) );
         } catch (Exception ex) {
             throw new InternalServerErrorException("Ocurrió un error al guardar el stock");
         }

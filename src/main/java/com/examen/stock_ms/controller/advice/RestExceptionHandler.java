@@ -9,25 +9,28 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestControllerAdvice
-public class RestExceptionHander {
+public class RestExceptionHandler {
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDetailDto> handleExceptionNotExists(ResourceNotFoundException ex){
-        ErrorDetailDto error = new ErrorDetailDto("not-exists", LocalDateTime.now());
+        ErrorDetailDto error = new ErrorDetailDto(ex.getMessage(), LocalDateTime.now().format(formatter) );
         return ResponseEntity.badRequest().body(error);
     }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorDetailDto> handleBadRequest(BadRequestException ex){
-        ErrorDetailDto error = new ErrorDetailDto("bad-request", LocalDateTime.now());
+        ErrorDetailDto error = new ErrorDetailDto(ex.getMessage(), LocalDateTime.now().format(formatter) );
         return ResponseEntity.badRequest().body(error);
     }
 
     @ExceptionHandler(InternalServerErrorException.class)
     public ResponseEntity<ErrorDetailDto> handleInternalServer(InternalServerErrorException ex){
-        ErrorDetailDto error = new ErrorDetailDto("internal-server-error", LocalDateTime.now());
+        ErrorDetailDto error = new ErrorDetailDto(ex.getMessage(), LocalDateTime.now().format(formatter) );
         return ResponseEntity.badRequest().body(error);
     }
 

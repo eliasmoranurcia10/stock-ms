@@ -11,9 +11,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface StockMapper {
 
+    @Mapping(target = "id", ignore = true)
     Stock toStock(SaveStockRequestDto saveStockRequestDto);
     List<Stock> toStocks(List<SaveStockRequestDto> saveStocksRequestDto);
-
 
     SaveStockResponseDto toSaveStockResponseDto(Stock stock);
     List<SaveStockResponseDto> toSaveStocksResponseDto(List<Stock> stocks);
